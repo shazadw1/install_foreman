@@ -50,6 +50,13 @@ update_ssl() {
     log "Running Certbot command: $certbot_command"
     $certbot_command
 
+    # Test the renewal process
+    echo "Testing certificate renewal process..."
+    sudo certbot renew --dry-run
+    
+    #Set Cron to auto renew certs
+    (sudo crontab -l 2>/dev/null; echo "0 3 * * * certbot renew --quiet") | sudo crontab -
+
     # Check if the Let's Encrypt files exist and update Foreman configurations
     local cert_file="/etc/letsencrypt/live/$HOSTNAME/cert.pem"
     local chain_file="/etc/letsencrypt/live/$HOSTNAME/chain.pem"
