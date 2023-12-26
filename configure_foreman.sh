@@ -47,9 +47,6 @@ update_ssl() {
 
     log "Certbot command completed successfully."
 
-    # Generate SSL certificate
-    sudo certbot certonly -d $HOSTNAME --webroot /var/lib/foreman/public
-
     # Check if the Let's Encrypt files exist and update Foreman configurations
     local cert_file="/etc/letsencrypt/live/$HOSTNAME/cert.pem"
     local chain_file="/etc/letsencrypt/live/$HOSTNAME/chain.pem"
