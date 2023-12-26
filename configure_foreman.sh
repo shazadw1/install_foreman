@@ -9,9 +9,6 @@ install_plugins() {
 
     # Install Smart Proxy Remote Execution SSH plugin
     sudo apt-get install ruby-smart-proxy-remote-execution-ssh
-
-    # Enable Foreman plugin templates
-    sudo foreman-installer --enable-foreman-plugin-templates
 }
 
 # Function to generate a key for Smart Proxy
@@ -28,13 +25,27 @@ generate_proxy_key() {
 
 # Function to update SSL
 update_ssl() {
-    echo "Updating SSL..."
 
     # Get the actual hostname of the system
     HOSTNAME=$(hostname)
 
+    echo "Updating SSL..."
+    
     # Install Certbot and its Apache plugin
     sudo apt-get install -y certbot python3-certbot-apache
+
+    # Run Certbot command to enable HTTPS for Foreman
+    certbot_command="certbot --apache -d $HOSTNAME --redirect --hsts"
+    log "Running Certbot command: $certbot_command"
+    $certbot_command
+
+    # Check the exit status of Certbot command
+    if [ $? -ne 0 ]; then
+        log "Error: Certbot command failed. Please check Certbot logs for details."
+        exit 1
+    fi
+
+    log "Certbot command completed successfully."
 
     # Generate SSL certificate
     sudo certbot certonly -d $HOSTNAME --webroot /var/lib/foreman/public
@@ -60,4 +71,3 @@ generate_proxy_key
 update_ssl
 
 echo "Script execution completed."
-
