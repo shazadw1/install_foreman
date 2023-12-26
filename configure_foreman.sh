@@ -76,6 +76,6 @@ echo "Starting script..."
 install_plugins
 generate_proxy_key
 update_ssl
-generate_proxy_key
+
 
 echo "Script execution completed."
