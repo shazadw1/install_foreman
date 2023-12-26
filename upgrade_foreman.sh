@@ -1,5 +1,7 @@
 #!/bin/bash
 
+###DO NOT Upgrade beyond 3.6###
+
 # Set the version variable
 version="3.4"
 
