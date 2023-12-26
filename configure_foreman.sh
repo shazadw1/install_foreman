@@ -14,6 +14,18 @@ install_plugins() {
     sudo foreman-installer --enable-foreman-plugin-templates
 }
 
+# Function to generate a key for Smart Proxy
+generate_proxy_key() {
+    echo "Generating SSH key for Smart Proxy..."
+
+    # Create .ssh directory for foreman-proxy user
+    mkdir ~foreman-proxy/.ssh
+    chown foreman-proxy ~foreman-proxy/.ssh
+
+    # Generate SSH key without a passphrase
+    sudo -u foreman-proxy ssh-keygen -f ~foreman-proxy/.ssh/id_rsa_foreman_proxy -N ''
+}
+
 # Function to update SSL
 update_ssl() {
     echo "Updating SSL..."
@@ -39,19 +51,13 @@ update_ssl() {
     [[ -f "$ca_bundle" ]] && sudo foreman-installer --foreman-proxy-foreman-ssl-ca "$ca_bundle" --puppet-server-foreman-ssl-ca "$ca_bundle" || echo "CA bundle file not found."
 }
 
-# Function to perform a backup
-backup() {
-    echo "Performing backup..."
-    # Backup commands...
-}
-
 # Main script execution
 echo "Starting script..."
 
 # Call functions
 install_plugins
+generate_proxy_key
 update_ssl
-backup
 
 echo "Script execution completed."
 
