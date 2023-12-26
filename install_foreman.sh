@@ -16,8 +16,8 @@ wget https://apt.puppet.com/puppet7-release-focal.deb
 sudo dpkg -i ./puppet7-release-focal.deb
 
 # Add Foreman repository to system
-echo "deb http://deb.theforeman.org/ focal 3.3" | sudo tee /etc/apt/sources.list.d/foreman.list
-echo "deb http://deb.theforeman.org/ plugins 3.3" | sudo tee -a /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ focal 3.4" | sudo tee /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins 3.4" | sudo tee -a /etc/apt/sources.list.d/foreman.list
 
 # Download Foreman GPG keys
 wget -q https://deb.theforeman.org/pubkey.gpg -O- | sudo apt-key add -
