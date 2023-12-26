@@ -9,6 +9,7 @@ install_plugins() {
 
     # Install Smart Proxy Remote Execution SSH plugin
     foreman-installer --enable-foreman-proxy-plugin-remote-execution-ssh
+
 }
 
 # Function to generate a key for Smart Proxy
@@ -54,12 +55,15 @@ update_ssl() {
     local cert_file="/etc/letsencrypt/live/$HOSTNAME/cert.pem"
     local chain_file="/etc/letsencrypt/live/$HOSTNAME/chain.pem"
     local key_file="/etc/letsencrypt/live/$HOSTNAME/privkey.pem"
-   # local ca_bundle="/etc/ssl/certs/ca-bundle.crt"
+    
 
     [[ -f "$cert_file" ]] && sudo foreman-installer --foreman-server-ssl-cert "$cert_file" || echo "Certificate file not found."
     [[ -f "$chain_file" ]] && sudo foreman-installer --foreman-server-ssl-chain "$chain_file" || echo "Chain file not found."
     [[ -f "$key_file" ]] && sudo foreman-installer --foreman-server-ssl-key "$key_file" || echo "Key file not found."
-    #[[ -f "$ca_bundle" ]] && sudo foreman-installer --foreman-proxy-foreman-ssl-ca "$ca_bundle" --puppet-server-foreman-ssl-ca "$ca_bundle" || echo "CA bundle file not found."
+    foreman-installer --foreman-proxy-foreman-ssl-ca  /etc/ssl/certs/ca-certificates.crt
+    foreman-installer --puppet-server-foreman-ssl-ca  /etc/ssl/certs/ca-certificates.crt
+    
+    
 }
 
 # Main script execution
