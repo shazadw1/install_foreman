@@ -8,7 +8,9 @@ show_menu() {
     echo "1) Install Foreman"
     echo "2) Upgrade Foreman"
     echo "3) Confgure Foreman"
-    echo "4) Quit"
+    echo "4) Backup Foreman"
+    echo "5) Restore Foreman"
+    echo "q) Quit"
 }
 
 # Function to read the user's choice
@@ -19,7 +21,9 @@ read_choice() {
         1) bash "$SCRIPT_PATH/install_foreman.sh";;
         2) bash "$SCRIPT_PATH/upgrade_foreman.sh";;
         3) bash "$SCRIPT_PATH/configure_foreman.sh";;
-        4) exit 0;;
+        4) bash "$SCRIPT_PATH/backup_foreman.sh";;
+        3) bash "$SCRIPT_PATH/restore_foreman.sh";;
+        q) exit 0;;
         *) echo "Error: Invalid option. Please try again.";;
     esac
 }
