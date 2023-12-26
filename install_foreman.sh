@@ -3,6 +3,9 @@
 # Install required packages
 sudo apt update​
 
+# Set hostname
+sudo hostnamectl set-hostname sysop.adaplo.co.uk
+
 # Install required packages
 sudo apt install -y apt-transport-https wget gpg gnupg ca-certificates
 
@@ -27,3 +30,4 @@ sudo apt -y install foreman-installer
 
 # Run Foreman installation
 foreman-installer
+
