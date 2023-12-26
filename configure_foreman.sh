@@ -10,6 +10,9 @@ install_plugins() {
     # Install Smart Proxy Remote Execution SSH plugin
     foreman-installer --enable-foreman-proxy-plugin-remote-execution-ssh
 
+    # Install Snapshot plugin
+    foreman-installer --enable-foreman-plugin-snapshot-managemen
+
 }
 
 # Function to generate a key for Smart Proxy
