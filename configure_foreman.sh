@@ -5,33 +5,26 @@ install_plugins() {
     echo "Installing plugins..."
 
     # Install Foreman Remote Execution plugin
-    sudo apt-get install ruby-foreman-remote-execution
+    foreman-installer --enable-foreman-plugin-remote-execution
 
     # Install Smart Proxy Remote Execution SSH plugin
-    sudo apt-get install ruby-smart-proxy-remote-execution-ssh
+    foreman-installer --enable-foreman-proxy-plugin-remote-execution-ssh
 }
 
 # Function to generate a key for Smart Proxy
 generate_proxy_key() {
     echo "Generating SSH key for Smart Proxy..."
 
-    # Resolve the home directory of the foreman-proxy user
-    proxy_home=$(getent passwd foreman-proxy | cut -d: -f6)
-
     # Check if .ssh exists and is a file, then remove it
-    rm -f "$proxy_home/.ssh"
-    chown foreman-proxy:foreman-proxy "$proxy_home/.ssh"
-    chmod 700 "$proxy_home/.ssh"
+    rm -f ~foreman-proxy/.ssh
+    mkdir ~foreman-proxy/.ssh
+    chown foreman-proxy ~foreman-proxy/.ssh
+    sudo -u foreman-proxy ssh-keygen -f ~foreman-proxy/.ssh/id_rsa_foreman_proxy -N ''
 
-    # Check if the .ssh directory exists, if not create it
-     mkdir "$proxy_home/.ssh"
-     # Generate SSH key without a passphrase, if it doesn't already exist
-    sudo -u foreman-proxy ssh-keygen -f "$proxy_home/.ssh/id_rsa_foreman_proxy" -N ''
 
     #Restarting services
-    sudo service httpd restart 
-    sudo service dynflowd restart 
-    sudo service foreman-proxy restart
+    systemctl restart apache2.service
+    sudo systemctl restart foreman.service
 }
 
 # Function to update SSL
