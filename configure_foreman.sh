@@ -20,11 +20,18 @@ generate_proxy_key() {
 
     # Check if .ssh exists and is a file, then remove it
     rm -f "$proxy_home/.ssh"
+    chown foreman-proxy:foreman-proxy "$proxy_home/.ssh"
+    chmod 700 "$proxy_home/.ssh"
 
     # Check if the .ssh directory exists, if not create it
      mkdir "$proxy_home/.ssh"
      # Generate SSH key without a passphrase, if it doesn't already exist
     sudo -u foreman-proxy ssh-keygen -f "$proxy_home/.ssh/id_rsa_foreman_proxy" -N ''
+
+    #Restarting services
+    sudo service httpd restart 
+    sudo service dynflowd restart 
+    sudo service foreman-proxy restart
 }
 
 # Function to update SSL
