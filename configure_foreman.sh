@@ -15,13 +15,34 @@ install_plugins() {
 generate_proxy_key() {
     echo "Generating SSH key for Smart Proxy..."
 
-    # Create .ssh directory for foreman-proxy user
-    mkdir ~foreman-proxy/.ssh
-    chown foreman-proxy ~foreman-proxy/.ssh
+    # Resolve the home directory of the foreman-proxy user
+    proxy_home=$(getent passwd foreman-proxy | cut -d: -f6)
 
-    # Generate SSH key without a passphrase
-    sudo -u foreman-proxy ssh-keygen -f ~foreman-proxy/.ssh/id_rsa_foreman_proxy -N ''
+    # Check if .ssh exists and is a file, then remove it
+    if [ -f "$proxy_home/.ssh" ]; then
+        echo "Found a file named .ssh, removing it..."
+        rm -f "$proxy_home/.ssh"
+    fi
+
+    # Check if the .ssh directory exists, if not create it
+    if [ ! -d "$proxy_home/.ssh" ]; then
+        echo "Creating .ssh directory..."
+        mkdir "$proxy_home/.ssh"
+        chown foreman-proxy:foreman-proxy "$proxy_home/.ssh"
+    else
+        echo ".ssh directory already exists."
+    fi
+
+    # Generate SSH key without a passphrase, if it doesn't already exist
+    if [ ! -f "$proxy_home/.ssh/id_rsa_foreman_proxy" ]; then
+        sudo -u foreman-proxy ssh-keygen -f "$proxy_home/.ssh/id_rsa_foreman_proxy" -N ''
+    else
+        echo "SSH key already exists."
+    fi
 }
+
+# Main script execution
+echo "Starting script..."
 
 # Function to update SSL
 update_ssl() {
