@@ -7,7 +7,7 @@ SCRIPT_PATH="/opt/install_foreman"
 show_menu() {
     echo "1) Install Foreman"
     echo "2) Upgrade Foreman"
-    echo "3) Confgure Foreman"
+    echo "3) Configure Foreman"
     echo "4) Backup Foreman"
     echo "5) Restore Foreman"
     echo "q) Quit"
