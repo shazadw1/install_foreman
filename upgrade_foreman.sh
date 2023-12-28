@@ -3,7 +3,7 @@
 ###DO NOT Upgrade beyond 3.6###
 
 # Set the version variable
-version="3.4"
+version="3.5"
 
 # Shutdown the Foreman instance
 echo "Stopping Foreman services..."
@@ -25,17 +25,14 @@ sudo foreman-rake db:seed
 sudo foreman-rake tmp:cache:clear
 sudo foreman-rake db:sessions:clear
 
-# Optional Step 3 (B) - Reclaim database space
-# Uncomment the following line if you want to perform a full database vacuum
+# Perform a full database vacuum - Reclaim database space
 su - postgres -c 'vacuumdb --full --dbname=foreman'
 
-
-# Uncomment the following lines if you want to run the installer in noop mode to see potential changes
+# Run the installer in noop mode to see potential changes
 sudo foreman-installer --noop --verbose
 
-# Uncomment the following line to apply installer changes
+# Apply installer changes
 sudo foreman-installer
-
 
 # Start the Foreman services
 echo "Starting Foreman services..."
