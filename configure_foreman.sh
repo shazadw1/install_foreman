@@ -73,7 +73,7 @@ update_ssl() {
 echo "Starting script..."
 
 # Call functions
-install_plugins
+#install_plugins
 generate_proxy_key
 update_ssl
 
