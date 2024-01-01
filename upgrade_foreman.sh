@@ -3,7 +3,7 @@
 ###DO NOT Upgrade beyond 3.6###
 
 # Set the version variable
-version="3.6"
+version="3.5"
 
 # Shutdown the Foreman instance
 echo "Stopping Foreman services..."
