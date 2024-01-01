@@ -5,7 +5,8 @@ install_plugins() {
     echo "Installing plugins..."
 
     # Install Foreman Remote Execution plugin
-    apt-get install ruby-foreman-remote-execution && ruby-smart-proxy-remote-execution-ssh
+    apt-get install ruby-foreman-remote-execution -y
+    apte get install ruby-smart-proxy-remote-execution-ssh -y
 
 }
 
