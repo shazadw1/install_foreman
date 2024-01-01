@@ -4,7 +4,7 @@
 sudo apt update​
 
 # Set hostname
-sudo hostnamectl set-hostname sysop.adaplo.co.uk
+sudo hostnamectl set-hostname ops.adaplo.co.uk
 
 # Install required packages
 sudo apt install -y apt-transport-https wget gpg gnupg ca-certificates
