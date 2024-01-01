@@ -5,10 +5,7 @@ install_plugins() {
     echo "Installing plugins..."
 
     # Install Foreman Remote Execution plugin
-    foreman-installer --enable-foreman-plugin-remote-execution
-
-    # Install Smart Proxy Remote Execution SSH plugin
-    foreman-installer --enable-foreman-proxy-plugin-remote-execution-ssh
+    apt-get install ruby-foreman-remote-execution && ruby-smart-proxy-remote-execution-ssh
 
 }
 
@@ -70,9 +67,8 @@ update_ssl() {
 echo "Starting script..."
 
 # Call functions
-#install_plugins
 generate_proxy_key
 update_ssl
-
+install_plugins
 
 echo "Script execution completed."
