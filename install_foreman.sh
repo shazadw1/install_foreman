@@ -10,12 +10,11 @@ sudo hostnamectl set-hostname sysop.adaplo.co.uk
 sudo apt install -y apt-transport-https wget gpg gnupg ca-certificates
 
 # Download Puppet repository
-#wget https://apt.puppet.com/puppet7-release-focal.deb
-wget https://apt.puppet.com/puppet8-release-focal.deb
+wget https://apt.puppet.com/puppet7-release-focal.deb
+
 
 # Add Puppet repository
-#sudo dpkg -i ./puppet7-release-focal.deb
-sudo dpkg -i ./puppet8-release-focal.deb
+sudo dpkg -i ./puppet7-release-focal.deb
 
 # Add Foreman repository to system
 echo "deb http://deb.theforeman.org/ focal 3.5" | sudo tee /etc/apt/sources.list.d/foreman.list
